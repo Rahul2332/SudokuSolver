@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "_comment": "This config was generated using 'stryker init'. Please take a look at: https://stryker-mutator.io/docs/stryker-js/configuration/ for more information.",
+  "packageManager": "npm",
+  "reporters": [
+    "html",
+    "clear-text",
+    "progress"
+  ],
+  "mutate": ["src/backtrack.js", "src/bitwise.js", "src/naive.js"],
+  "testRunner": "mocha",
+  "coverageAnalysis": "perTest",
+  "mochaOptions": {
+    "spec": [
+      "test/**/*.js"
+    ],
+    "no-config": true,
+    "no-package": true,
+    "ui": "bdd",
+    "async-only": false,
+    "grep": ".*"
+  }
+}
