@@ -2,6 +2,32 @@
 
 // N is the size of the 2D matrix N*N
 
+export function getElement(board, row, col) {
+	if (
+		row < 0 ||
+		row >= board.length ||
+		col < 0 ||
+		col >= board[0].length
+	) {
+		throw new Error("Index out of bounds");
+	}
+
+	return board[row][col];
+}
+
+export function putElement(board, row, col, val) {
+	if (
+		row < 0 ||
+		row >= board.length ||
+		col < 0 ||
+		col >= board[0].length
+	) {
+		throw new Error("Index out of bounds");
+	}
+
+	board[row][col] = val;
+}
+
 /* Takes a partially filled-in grid and attempts
 	to assign values to all unassigned locations in
 	such a way to meet the requirements for
@@ -31,7 +57,7 @@ function solveSudoku(grid, row, col)
 	// of the grid already
 	// contains value >0, we iterate
 	// for next column
-	if (grid[row][col] != 0)
+	if (getElement(grid,row,col) != 0)
 		return solveSudoku(grid, row, col + 1);
 
 	for(let num = 1; num < 10; num++)
@@ -47,7 +73,7 @@ function solveSudoku(grid, row, col)
 			(row,col) position of the grid and
 			assuming our assigned num in the position
 			is correct */
-			grid[row][col] = num;
+			putElement(grid,row,col,num);
 
 			// Checking for next
 			// possibility with next column
@@ -58,7 +84,8 @@ function solveSudoku(grid, row, col)
 		/* removing the assigned num , since our
 		assumption was wrong , and we go for next
 		assumption with diff num value */
-		grid[row][col] = 0;
+		// grid[row][col] = 0;
+		putElement(grid,row,col,0);
 	}
 	return false;
 }
@@ -72,15 +99,15 @@ function isSafe(grid, row, col, num)
 	// Check if we find the same num
 	// in the similar row , we
 	// return false
-	for(let x = 0; x <= 8; x++)
-		if (grid[row][x] == num)
+	for(let x = 0; x<9; x++)
+		if (getElement(grid,row,x) == num)
 			return false;
 
 	// Check if we find the same num
 	// in the similar column ,
 	// we return false
-	for(let x = 0; x <= 8; x++)
-		if (grid[x][col] == num)
+	for(let x = 0; x<9; x++)
+		if (getElement(grid,x,col) == num)
 			return false;
 
 	// Check if we find the same num
@@ -91,7 +118,7 @@ function isSafe(grid, row, col, num)
 		
 	for(let i = 0; i < 3; i++)
 		for(let j = 0; j < 3; j++)
-			if (grid[i + startRow][j + startCol] == num)
+			if (getElement(grid, i + startRow, j + startCol) == num)
 				return false;
 
 	return true;
@@ -103,7 +130,7 @@ export const sudokuArrayToString = (boardArray) => {
 	
 	for (let i = 0; i < boardArray.length; i++) {
 	  for (let j = 0; j < boardArray[i].length; j++) {
-		boardString += boardArray[i][j];
+		boardString += getElement(boardArray,i,j);
 	  }
 	}
   

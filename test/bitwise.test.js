@@ -1,9 +1,41 @@
-import { SudokuBitwise, isSafe, clearCellValue, setCellValue, getBox,sudokuArrayToString, stringToSudokuArray} from "../src/bitwise.js";
+import { SudokuBitwise, isSafe, clearCellValue, setCellValue, getBox,sudokuArrayToString, stringToSudokuArray, getElement, putElement} from "../src/bitwise.js";
 import { generateSudoku } from "../src/generator.js";
 import { isValid } from "../src/valid.js";
 import { expect } from "chai";
 
 describe('bitwise', () => {
+  const myArray = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+  ];
+
+  it('correct getElement', () => {
+    expect(getElement(myArray, 1, 2)).to.equal(6);
+  });
+
+  it('row out-of-bounds getElement', () => {
+    expect(() => getElement(myArray, 3, 2)).to.throw('Index out of bounds');
+  });
+
+  it('col out-of-bounds getElement', () => {
+    expect(() => getElement(myArray, 1, 3)).to.throw('Index out of bounds');
+  });
+
+  it('correct puttElement', () => {
+    putElement(myArray, 1, 2, 42);
+    expect(myArray[1][2]).to.equal(42);
+  });
+
+  it('row out-of-bounds putElement', () => {
+    // expect(getElement(myArray, 3, 2)).to.equal(-1);
+    expect(() => putElement(myArray, 3, 2, 42)).to.throw('Index out of bounds');
+  });
+  it('col out-of-bounds putElement', () => {
+    // expect(getElement(myArray, 1, 3)).to.equal(-1);
+    expect(() => putElement(myArray, 1, 3, 42)).to.throw('Index out of bounds');
+  });
+
   it('case atos', () => {
     let grid = [ [ 3, 0, 6, 5, 0, 8, 4, 0, 0 ],
              [ 5, 2, 0, 0, 0, 0, 0, 0, 0 ],

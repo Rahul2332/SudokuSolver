@@ -1,9 +1,42 @@
-import { SudokuBacktrack, sudokuArrayToString, stringToSudokuArray, hasRowClash, hasColClash, hasSquareClash, isSafe } from "../src/backtrack.js";
+import { SudokuBacktrack, sudokuArrayToString, stringToSudokuArray, hasRowClash, hasColClash, hasSquareClash, isSafe, getElement, putElement } from "../src/backtrack.js";
 import { generateSudoku } from "../src/generator.js";
 import { isValid } from "../src/valid.js";
 import { expect } from "chai";
 
 describe('backtrack', () => {
+  const myArray = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+  ];
+
+  it('correct getElement', () => {
+    expect(getElement(myArray, 1, 2)).to.equal(6);
+  });
+
+  it('row out-of-bounds getElement', () => {
+    expect(() => getElement(myArray, 3, 2)).to.throw('Index out of bounds');
+  });
+
+  it('col out-of-bounds getElement', () => {
+    expect(() => getElement(myArray, 1, 3)).to.throw('Index out of bounds');
+  });
+
+  it('correct puttElement', () => {
+    putElement(myArray, 1, 2, 42);
+    expect(myArray[1][2]).to.equal(42);
+  });
+
+  it('row out-of-bounds putElement', () => {
+    // expect(getElement(myArray, 3, 2)).to.equal(-1);
+    expect(() => putElement(myArray, 3, 2, 42)).to.throw('Index out of bounds');
+  });
+  it('col out-of-bounds putElement', () => {
+    // expect(getElement(myArray, 1, 3)).to.equal(-1);
+    expect(() => putElement(myArray, 1, 3, 42)).to.throw('Index out of bounds');
+  });
+
+
   it('case atos', () => {
     let grid = [[3, 0, 6, 5, 0, 8, 4, 0, 0],
       [5, 2, 0, 0, 0, 0, 0, 0, 0],
@@ -59,8 +92,24 @@ describe('backtrack', () => {
     expect(pred).to.equal(null);
   });
 
-  let validBoard = [
-      [0,0,6,5,7,8,4,9,2],
+  it('rowClash true', () => {
+    let invalidBoard = [
+      [0,0,6,5,7,8,4,9,6,1],
+      [5,2,9,1,3,4,7,6,8,1], 
+      [4,8,1,6,2,9,5,3,1,1], 
+      [2,6,3,4,1,5,9,8,7,1], 
+      [9,7,4,8,6,3,1,2,5,1], 
+      [8,5,1,7,9,2,6,4,3,1], 
+      [1,3,8,9,4,7,2,5,6,1], 
+      [6,9,2,3,5,1,8,7,4,1], 
+      [3,4,5,2,8,6,3,1,9,1],
+      [0,0,6,5,7,8,4,9,1,1]
+    ]
+    expect(hasRowClash(invalidBoard,0,1)).to.equal(true);
+  });
+  it('rowClash false', () => {
+    let validBoard = [
+      [3,0,6,5,7,8,4,9,2],
       [5,2,9,1,3,4,7,6,8], 
       [4,8,7,6,2,9,5,3,1], 
       [2,6,3,4,1,5,9,8,7], 
@@ -69,45 +118,97 @@ describe('backtrack', () => {
       [1,3,8,9,4,7,2,5,6], 
       [6,9,2,3,5,1,8,7,4], 
       [7,4,5,2,8,6,3,1,9],
-  ]
-  let invalidBoard = [
-    [0,0,6,5,7,8,4,9,1,1],
-    [5,2,9,1,3,4,7,6,8,1], 
-    [4,8,1,6,2,9,5,3,1,1], 
-    [2,6,3,4,1,5,9,8,7,1], 
-    [9,7,4,8,6,3,1,2,5,1], 
-    [8,5,1,7,9,2,6,4,3,1], 
-    [1,3,8,9,4,7,2,5,6,1], 
-    [6,9,2,3,5,1,8,7,4,1], 
-    [3,4,5,2,8,6,3,1,9,1],
-    [0,0,6,5,7,8,4,9,1,1]
-]
-
-  it('rowClash true', () => {
-    expect(hasRowClash(invalidBoard,0,1)).to.equal(true);
-  });
-  it('rowClash false', () => {
+    ]
     expect(hasRowClash(validBoard,0,1)).to.equal(false);
   });
 
   it('colClash true', () => {
+    let invalidBoard = [
+      [0,0,6,5,7,8,4,9,6,1],
+      [5,2,9,1,3,4,7,6,8,1], 
+      [4,8,1,6,2,9,5,3,1,1], 
+      [2,6,3,4,1,5,9,8,7,1], 
+      [9,7,4,8,6,3,1,2,5,1], 
+      [8,5,1,7,9,2,6,4,3,1], 
+      [1,3,8,9,4,7,2,5,6,1], 
+      [6,9,2,3,5,1,8,7,4,1], 
+      [0,4,5,2,8,6,3,1,9,1],
+      [3,0,6,5,7,8,4,9,1,1]
+    ]
     expect(hasColClash(invalidBoard,0,3)).to.equal(true);
   });
   it('colClash false', () => {
+    let validBoard = [
+      [0,1,6,5,7,8,4,9,2],
+      [5,2,9,1,3,4,7,6,8], 
+      [4,8,7,6,2,9,5,3,1], 
+      [2,6,3,4,1,5,9,8,7], 
+      [9,7,4,8,6,3,1,2,5], 
+      [8,5,1,7,9,2,6,4,3], 
+      [1,3,8,9,4,7,2,5,6], 
+      [6,9,2,3,5,1,8,7,4], 
+      [7,4,5,2,8,6,3,1,9],
+    ]
     expect(hasColClash(validBoard,0,3)).to.equal(false);
   });
 
   it('sqrClash true', () => {
+    let invalidBoard = [
+      [0,0,6,5,7,8,4,9,6,1],
+      [5,2,9,1,3,4,7,6,8,1], 
+      [4,8,1,6,2,9,5,3,1,1], 
+      [2,6,3,4,1,5,9,8,7,1], 
+      [9,7,4,8,6,3,1,2,5,1], 
+      [8,5,1,7,9,2,6,4,3,1], 
+      [1,3,8,9,4,7,2,5,6,1], 
+      [6,9,2,3,5,1,8,7,4,1], 
+      [0,4,5,2,8,6,3,1,9,1],
+      [3,0,6,5,7,8,4,9,1,1]
+    ]
     expect(hasSquareClash(invalidBoard,0,1,1)).to.equal(true);
   });
   it('sqrClash false', () => {
+    let validBoard = [
+      [3,0,6,5,7,8,4,9,2],
+      [5,2,9,1,3,4,7,6,8], 
+      [4,8,7,6,2,9,5,3,1], 
+      [2,6,3,4,1,5,9,8,7], 
+      [9,7,4,8,6,3,1,2,5], 
+      [8,5,1,7,9,2,6,4,3], 
+      [1,3,8,9,4,7,2,5,6], 
+      [6,9,2,3,5,1,8,7,4], 
+      [7,4,5,2,8,6,3,1,9],
+    ]
     expect(hasSquareClash(validBoard,0,1,1)).to.equal(false);
   });
 
   it('isSafe false', () => {
+    let invalidBoard = [
+      [0,0,6,5,7,8,4,9,6,1],
+      [5,2,9,1,3,4,7,6,8,1], 
+      [4,8,1,6,2,9,5,3,1,1], 
+      [2,6,3,4,1,5,9,8,7,1], 
+      [9,7,4,8,6,3,1,2,5,1], 
+      [8,5,1,7,9,2,6,4,3,1], 
+      [1,3,8,9,4,7,2,5,6,1], 
+      [6,9,2,3,5,1,8,7,4,1], 
+      [0,4,5,2,8,6,3,1,9,1],
+      [3,0,6,5,7,8,4,9,1,1]
+    ]
     expect(isSafe(invalidBoard,0,1,1)).to.equal(false);
   });
   it('isSafe true', () => {
+    let validBoard = [
+      [3,0,6,5,7,8,4,9,2],
+      [5,2,9,1,3,4,7,6,8], 
+      [4,8,7,6,2,9,5,3,1], 
+      [2,6,3,4,1,5,9,8,7], 
+      [9,7,4,8,6,3,1,2,5], 
+      [8,5,1,7,9,2,6,4,3], 
+      [1,3,8,9,4,7,2,5,6], 
+      [6,9,2,3,5,1,8,7,4], 
+      [7,4,5,2,8,6,3,1,9],
+    ]
     expect(isSafe(validBoard,0,1,1)).to.equal(true);
   });
   
