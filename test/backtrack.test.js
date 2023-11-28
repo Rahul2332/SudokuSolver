@@ -5,35 +5,111 @@ import { expect } from "chai";
 
 describe('backtrack', () => {
   const myArray = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
+    [1, 2, 3, 4],
+    [4, 5, 6, 4],
+    [7, 8, 9, 4],
+    [4, 5, 6, 4]
   ];
 
   it('correct getElement', () => {
     expect(getElement(myArray, 1, 2)).to.equal(6);
   });
 
-  it('row out-of-bounds getElement', () => {
-    expect(() => getElement(myArray, 3, 2)).to.throw('Index out of bounds');
+  it('case 1a: getElement ', () => {
+    expect(getElement(myArray, 0, 2)).to.equal(3);
+  });
+  it('case 1b: getElement ', () => {
+    // expect(getElement(myArray, -1, 2)).to.equal(null);
+    expect(() => getElement(myArray, -1, 2)).to.throw('Index out of bounds');
+  });
+  it('case 1c: getElement ', () => {
+    expect(getElement(myArray, 1, 2)).to.equal(6);
   });
 
-  it('col out-of-bounds getElement', () => {
-    expect(() => getElement(myArray, 1, 3)).to.throw('Index out of bounds');
+  it('case 2a: getElement ', () => {
+    expect(getElement(myArray, 2, 0)).to.equal(7);
+  });
+  it('case 2b: getElement ', () => {
+    // expect(getElement(myArray, 2, -1)).to.equal(null);
+    expect(() => getElement(myArray, 2, -1)).to.throw('Index out of bounds');
+  });
+  it('case 2c: getElement ', () => {
+    expect(getElement(myArray, 2, 1)).to.equal(8);
   });
 
-  it('correct puttElement', () => {
+  it('case 3a: getElement ', () => {
+    expect(getElement(myArray, 3, 2)).to.equal(6);
+  });
+  it('case 3b: getElement ', () => {
+    // expect(getElement(myArray, 4, 2)).to.equal(null);
+    expect(() => getElement(myArray, 4, 2)).to.throw('Index out of bounds');
+  });
+  it('case 3c: getElement ', () => {
+    // expect(getElement(myArray, 5, 2)).to.equal(null);
+    expect(() => getElement(myArray,5, 2)).to.throw('Index out of bounds');
+  });
+
+  it('case 4a: getElement ', () => {
+    expect(getElement(myArray, 2, 3)).to.equal(4);
+  });
+  it('case 4b: getElement ', () => {
+    // expect(getElement(myArray, 2, 4)).to.equal(null);
+    expect(() => getElement(myArray, 2, 4)).to.throw('Index out of bounds');
+  });
+  it('case 4c: getElement ', () => {
+    // expect(getElement(myArray, 2, 5)).to.equal(null);
+    expect(() => getElement(myArray, 2, 5)).to.throw('Index out of bounds');
+  });
+
+  it('correct putElement', () => {
     putElement(myArray, 1, 2, 42);
     expect(myArray[1][2]).to.equal(42);
   });
 
-  it('row out-of-bounds putElement', () => {
-    // expect(getElement(myArray, 3, 2)).to.equal(-1);
-    expect(() => putElement(myArray, 3, 2, 42)).to.throw('Index out of bounds');
+  it('case 1a: putElement', () => {
+    // expect(putElement(myArray, 4, 2, 42)).to.equal(false);
+    expect(() => putElement(myArray, 4, 2, 42)).to.throw('Index out of bounds');
   });
-  it('col out-of-bounds putElement', () => {
-    // expect(getElement(myArray, 1, 3)).to.equal(-1);
-    expect(() => putElement(myArray, 1, 3, 42)).to.throw('Index out of bounds');
+  it('case 1b: putElement', () => {
+    // expect(putElement(myArray, 5, 2, 42)).to.equal(false);
+    expect(() => putElement(myArray, 5, 2, 42)).to.throw('Index out of bounds');
+  });
+  it('case 1c: putElement', () => {
+    expect(putElement(myArray, 3, 2, 42)).to.equal(true);
+  });
+  
+  it('case 2a: putElement', () => {
+    // expect(putElement(myArray, 2, 4, 42)).to.equal(false);
+    expect(() => putElement(myArray, 2, 4, 42)).to.throw('Index out of bounds');
+  });
+  it('case 2b: putElement', () => {
+    // expect(putElement(myArray, 2, 5, 42)).to.equal(false);
+    expect(() => putElement(myArray, 2, 5, 42)).to.throw('Index out of bounds');
+  });
+  it('case 2c: putElement', () => {
+    expect(putElement(myArray, 2, 3, 42)).to.equal(true);
+  });
+
+  it('case 3a: putElement', () => {
+    // expect(putElement(myArray, 2, -1, 42)).to.equal(false);
+    expect(() => putElement(myArray, 2, -1, 42)).to.throw('Index out of bounds');
+  });
+  it('case 3a: putElement', () => {
+    expect(putElement(myArray, 2, 0, 42)).to.equal(true);
+  });
+  it('case 3a: putElement', () => {
+    expect(putElement(myArray, 2, 1, 42)).to.equal(true);
+  });
+
+  it('case 4a: putElement', () => {
+    // expect(putElement(myArray, -1, 2, 42)).to.equal(false);
+    expect(() => putElement(myArray, -1, 2, 42)).to.throw('Index out of bounds');
+  });
+  it('case 4a: putElement', () => {
+    expect(putElement(myArray, 0, 2, 42)).to.equal(true);
+  });
+  it('case 4a: putElement', () => {
+    expect(putElement(myArray, 1, 2, 42)).to.equal(true);
   });
 
 
@@ -91,6 +167,28 @@ describe('backtrack', () => {
     var pred = SudokuBacktrack("12300")
     expect(pred).to.equal(null);
   });
+
+  // let testInputStrings = [
+  //   "018020930000700000304081500400000023500002080200003600100000807020007300800000090",
+  //   "400000726006000014092000000900020000030800470000603895004069000300581000108204600",
+  //   "800960107046001500070005000580090001009200800000000009095000010008100030310406200",
+  //   "200040190500200804000710000100900000903050082002007600000020040020000001418000200",
+  //   "500200030002815000847060102004100300908450020005300084003081000000500000006000918",
+  // ]
+
+  // let testOutputStrings = [
+  //   "718526934952734168364981572496158723573692481281473659135269847629847315847315296",
+  //   "413958726856372914792146583985427361631895472247613895524769138369581247178234659",
+  //   "853962147946731582271845963584697321739214856162583479695328714428179635317456298",
+  //   "287543196531296874694718523176982435943651782852437619769125348325874961418369257",
+  //   "519274836362815479847963152674128395938457621125396784293681547781549263456732918",
+  // ]
+  // for(let i=0;i<5;i++){
+  //   it('case testing ' + i, () => {
+  //     var pred = SudokuBacktrack(testInputStrings[i])
+  //     expect(pred).to.equal(testOutputStrings[i]);
+  //   });
+  // }
 
   it('rowClash true', () => {
     let invalidBoard = [
@@ -211,6 +309,8 @@ describe('backtrack', () => {
     ]
     expect(isSafe(validBoard,0,1,1)).to.equal(true);
   });
+
+
   
   
 });

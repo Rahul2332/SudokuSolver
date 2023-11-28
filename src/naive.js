@@ -26,6 +26,7 @@ export function putElement(board, row, col, val) {
 	}
 
 	board[row][col] = val;
+	return true;
 }
 
 /* Takes a partially filled-in grid and attempts

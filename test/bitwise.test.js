@@ -5,35 +5,111 @@ import { expect } from "chai";
 
 describe('bitwise', () => {
   const myArray = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
+    [1, 2, 3, 4],
+    [4, 5, 6, 4],
+    [7, 8, 9, 4],
+    [4, 5, 6, 4]
   ];
 
   it('correct getElement', () => {
     expect(getElement(myArray, 1, 2)).to.equal(6);
   });
 
-  it('row out-of-bounds getElement', () => {
-    expect(() => getElement(myArray, 3, 2)).to.throw('Index out of bounds');
+  it('case 1a: getElement ', () => {
+    expect(getElement(myArray, 0, 2)).to.equal(3);
+  });
+  it('case 1b: getElement ', () => {
+    // expect(getElement(myArray, -1, 2)).to.equal(null);
+    expect(() => getElement(myArray, -1, 2)).to.throw('Index out of bounds');
+  });
+  it('case 1c: getElement ', () => {
+    expect(getElement(myArray, 1, 2)).to.equal(6);
   });
 
-  it('col out-of-bounds getElement', () => {
-    expect(() => getElement(myArray, 1, 3)).to.throw('Index out of bounds');
+  it('case 2a: getElement ', () => {
+    expect(getElement(myArray, 2, 0)).to.equal(7);
+  });
+  it('case 2b: getElement ', () => {
+    // expect(getElement(myArray, 2, -1)).to.equal(null);
+    expect(() => getElement(myArray, 2, -1)).to.throw('Index out of bounds');
+  });
+  it('case 2c: getElement ', () => {
+    expect(getElement(myArray, 2, 1)).to.equal(8);
   });
 
-  it('correct puttElement', () => {
+  it('case 3a: getElement ', () => {
+    expect(getElement(myArray, 3, 2)).to.equal(6);
+  });
+  it('case 3b: getElement ', () => {
+    // expect(getElement(myArray, 4, 2)).to.equal(null);
+    expect(() => getElement(myArray, 4, 2)).to.throw('Index out of bounds');
+  });
+  it('case 3c: getElement ', () => {
+    // expect(getElement(myArray, 5, 2)).to.equal(null);
+    expect(() => getElement(myArray,5, 2)).to.throw('Index out of bounds');
+  });
+
+  it('case 4a: getElement ', () => {
+    expect(getElement(myArray, 2, 3)).to.equal(4);
+  });
+  it('case 4b: getElement ', () => {
+    // expect(getElement(myArray, 2, 4)).to.equal(null);
+    expect(() => getElement(myArray, 2, 4)).to.throw('Index out of bounds');
+  });
+  it('case 4c: getElement ', () => {
+    // expect(getElement(myArray, 2, 5)).to.equal(null);
+    expect(() => getElement(myArray, 2, 5)).to.throw('Index out of bounds');
+  });
+
+  it('correct putElement', () => {
     putElement(myArray, 1, 2, 42);
     expect(myArray[1][2]).to.equal(42);
   });
 
-  it('row out-of-bounds putElement', () => {
-    // expect(getElement(myArray, 3, 2)).to.equal(-1);
-    expect(() => putElement(myArray, 3, 2, 42)).to.throw('Index out of bounds');
+  it('case 1a: putElement', () => {
+    // expect(putElement(myArray, 4, 2, 42)).to.equal(false);
+    expect(() => putElement(myArray, 4, 2, 42)).to.throw('Index out of bounds');
   });
-  it('col out-of-bounds putElement', () => {
-    // expect(getElement(myArray, 1, 3)).to.equal(-1);
-    expect(() => putElement(myArray, 1, 3, 42)).to.throw('Index out of bounds');
+  it('case 1b: putElement', () => {
+    // expect(putElement(myArray, 5, 2, 42)).to.equal(false);
+    expect(() => putElement(myArray, 5, 2, 42)).to.throw('Index out of bounds');
+  });
+  it('case 1c: putElement', () => {
+    expect(putElement(myArray, 3, 2, 42)).to.equal(true);
+  });
+  
+  it('case 2a: putElement', () => {
+    // expect(putElement(myArray, 2, 4, 42)).to.equal(false);
+    expect(() => putElement(myArray, 2, 4, 42)).to.throw('Index out of bounds');
+  });
+  it('case 2b: putElement', () => {
+    // expect(putElement(myArray, 2, 5, 42)).to.equal(false);
+    expect(() => putElement(myArray, 2, 5, 42)).to.throw('Index out of bounds');
+  });
+  it('case 2c: putElement', () => {
+    expect(putElement(myArray, 2, 3, 42)).to.equal(true);
+  });
+
+  it('case 3a: putElement', () => {
+    // expect(putElement(myArray, 2, -1, 42)).to.equal(false);
+    expect(() => putElement(myArray, 2, -1, 42)).to.throw('Index out of bounds');
+  });
+  it('case 3a: putElement', () => {
+    expect(putElement(myArray, 2, 0, 42)).to.equal(true);
+  });
+  it('case 3a: putElement', () => {
+    expect(putElement(myArray, 2, 1, 42)).to.equal(true);
+  });
+
+  it('case 4a: putElement', () => {
+    // expect(putElement(myArray, -1, 2, 42)).to.equal(false);
+    expect(() => putElement(myArray, -1, 2, 42)).to.throw('Index out of bounds');
+  });
+  it('case 4a: putElement', () => {
+    expect(putElement(myArray, 0, 2, 42)).to.equal(true);
+  });
+  it('case 4a: putElement', () => {
+    expect(putElement(myArray, 1, 2, 42)).to.equal(true);
   });
 
   it('case atos', () => {
@@ -85,10 +161,10 @@ describe('bitwise', () => {
     var pred = SudokuBitwise("306508400520000000087000031003010080900863005050090600130000250000000074005206300123")
     expect(pred).to.equal(-1);
   });
-  // it('case 4: solver ', () => {
-  //   var pred = SudokuBitwise("12300")
-  //   expect(pred).to.equal(-1);
-  // });
+  it('case 4: solver ', () => {
+    var pred = SudokuBitwise("12300")
+    expect(pred).to.equal(-1);
+  });
 
   it('case 1: isSafe ', () => {
     expect(isSafe(0, 0, 5, [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0])).to.equal(true);
@@ -100,21 +176,6 @@ describe('bitwise', () => {
     expect(isSafe(1, 7, 3, [0, 2, 4, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0])).to.equal(true);
   });
 
-  // it('case 1: getBox ', () => {
-  //   expect(getBox(0, 0)).to.equal(0);
-  // });
-  // it('case 2: getBox ', () => {
-  //   expect(getBox(4, 4)).to.equal(4);
-  // });
-  // it('case 3: getBox ', () => {
-  //   expect(getBox(8, 7)).to.equal(8);
-  // });
-  // it('case 4: getBox ', () => {
-  //   expect(getBox(-1, 2)).to.equal(null);
-  // });
-  // it('case 5: getBox ', () => {
-  //   expect(getBox(3, 10)).to.equal(null);
-  // });
   it('case 1a: getBox ', () => {
     expect(getBox(0, 3)).to.equal(1);
   });
@@ -154,7 +215,4 @@ describe('bitwise', () => {
   it('case 4c: getBox ', () => {
     expect(getBox(3, 8)).to.equal(5);
   });
-
-  
-
 });
