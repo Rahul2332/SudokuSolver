@@ -10,6 +10,7 @@
   "mutate": ["src/backtrack.js", "src/bitwise.js", "src/naive.js"],
   "testRunner": "mocha",
   "coverageAnalysis": "perTest",
+  "timeoutMS": 2000,
   "mochaOptions": {
     "spec": [
       "test/**/*.js"

@@ -147,9 +147,6 @@ class Sudoku {
         }
     
         return boardString;
-        // for (let i = 0; i < this.N; i++) {
-        //         console.log(this.mat[i].join(" "))
-        // }
     }
  
     // Remove the K no. of digits to
@@ -170,14 +167,13 @@ class Sudoku {
         return;
     }
 }
- 
-export const generateSudoku = () => {
-    // Driver code
-    let N = 9
-    let K = 40
+
+export const generateSudoku = (N, K) => {
     let sudoku = new Sudoku(N, K)
+    if(K > N*N) return null;
+
     sudoku.fillValues()
     return sudoku.printSudoku()
 }
 
-console.log(generateSudoku())
+console.log(generateSudoku(9, 20))

@@ -1,28 +1,28 @@
 export function getElement(board, row, col) {
-	if (
-		row < 0 ||
-		row >= board.length ||
-		col < 0 ||
-		col >= board[0].length
-	) {
-		throw new Error("Index out of bounds");
-	}
+	// if (
+	// 	row < 0 ||
+	// 	row >= board.length ||
+	// 	col < 0 ||
+	// 	col >= board[0].length
+	// ) {
+	// 	throw new Error("Index out of bounds");
+	// }
 
 	return board[row][col];
 }
 
 export function putElement(board, row, col, val) {
-	if (
-		row < 0 ||
-		row >= board.length ||
-		col < 0 ||
-		col >= board[0].length
-	) {
-		throw new Error("Index out of bounds");
-	}
+	// if (
+	// 	row < 0 ||
+	// 	row >= board.length ||
+	// 	col < 0 ||
+	// 	col >= board[0].length
+	// ) {
+	// 	throw new Error("Index out of bounds");
+	// }
 
 	board[row][col] = val;
-	return true;
+	// return true;
 }
 
 export const getBox = (i, j) => {
@@ -89,9 +89,9 @@ export const solveSudoku = (grid, i, j, row, col, box) => {
 }
 
 export const solveSudokuWrapper = (grid) => {
-    const row = new Array().fill(0);
-    const col = new Array().fill(0);
-    const box = new Array().fill(0);
+    const row = new Array(9).fill(0);
+    const col = new Array(9).fill(0);
+    const box = new Array(9).fill(0);
     setInitialValues(grid, row, col, box);
     return solveSudoku(grid, 0, 0, row, col, box) ? grid : null;
 }
