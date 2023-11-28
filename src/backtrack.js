@@ -1,58 +1,53 @@
 /* A Backtracking program in
 Javascript to solve Sudoku problem */
 
-function isSafe(board, row, col, num)
-{
-	
-	// Row has the unique (row-clash)
-	for(let d = 0; d < board.length; d++)
+// sudokuUtils.js
+
+// Check if placing 'num' in the given 'row' causes a clash
+export function hasRowClash(board, row, num) {
+	for(let d = 0; d < board[row].length; d++)
 	{
-		
-		// Check if the number we are trying to
-		// place is already present in
-		// that row, return false;
-		if (board[row][d] == num)
-		{
-			return false;
+		if (board[row][d] == num){
+			return true;
 		}
 	}
-
-	// Column has the unique numbers (column-clash)
-	for(let r = 0; r < board.length; r++)
-	{
-		
-		// Check if the number
-		// we are trying to
-		// place is already present in
-		// that column, return false;
-		if (board[r][col] == num)
-		{
-			return false;
-		}
-	}
-
-	// Corresponding square has
-	// unique number (box-clash)
-	let sqrt = Math.floor(Math.sqrt(board.length));
-	let boxRowStart = row - row % sqrt;
-	let boxColStart = col - col % sqrt;
-
-	for(let r = boxRowStart;
-			r < boxRowStart + sqrt; r++)
-	{
-		for(let d = boxColStart;
-				d < boxColStart + sqrt; d++)
-		{
-			if (board[r][d] == num)
-			{
-				return false;
-			}
-		}
-	}
-
-	// If there is no clash, it's safe
-	return true;
+    return false;
 }
+
+// Check if placing 'num' in the given 'col' causes a clash
+export function hasColClash(board, col, num) {
+    for (let r = 0; r < board.length; r++) {
+        if (board[r][col] === num) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Check if placing 'num' in the given 'row' and 'col' causes a clash within the square
+export function hasSquareClash(board, row, col, num) {
+    const sqrt = Math.floor(Math.sqrt(board.length));
+    const boxRowStart = row - row % sqrt;
+    const boxColStart = col - col % sqrt;
+
+    for (let r = boxRowStart; r < boxRowStart + sqrt; r++) {
+        for (let c = boxColStart; c < boxColStart + sqrt; c++) {
+            if (board[r][c] === num) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+// Check if placing 'num' in the given 'row' and 'col' is safe
+export function isSafe(board, row, col, num) {
+    return !hasRowClash(board, row, num) &&
+           !hasColClash(board, col, num) &&
+           !hasSquareClash(board, row, col, num);
+}
+
 
 function solveSudoku(board, n)
 {
