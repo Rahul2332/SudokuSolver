@@ -4,30 +4,30 @@ Javascript to solve Sudoku problem */
 // sudokuUtils.js
 
 export function getElement(board, row, col) {
-	// if (
-	// 	row < 0 ||
-	// 	row >= board.length ||
-	// 	col < 0 ||
-	// 	col >= board[0].length
-	// ) {
-	// 	throw new Error("Index out of bounds");
-	// }
+	if (
+		row < 0 ||
+		row >= board.length ||
+		col < 0 ||
+		col >= board[0].length
+	) {
+		throw new Error("Index out of bounds");
+	}
 
 	return board[row][col];
 }
 
 export function putElement(board, row, col, val) {
-	// if (
-	// 	row < 0 ||
-	// 	row >= board.length ||
-	// 	col < 0 ||
-	// 	col >= board[0].length
-	// ) {
-	// 	throw new Error("Index out of bounds");
-	// }
+	if (
+		row < 0 ||
+		row >= board.length ||
+		col < 0 ||
+		col >= board[0].length
+	) {
+		throw new Error("Index out of bounds");
+	}
 
 	board[row][col] = val;
-	// return true;
+	return true;
 }
 
 // Check if placing 'num' in the given 'row' causes a clash
@@ -76,9 +76,9 @@ export function isSafe(board, row, col, num) {
 
 
 function solveSudoku(board, n) {
-	// let row = -1;
-	// let col = -1;
-	let row, col;
+	let row = -1;
+	let col = -1;
+	// let row, col;
 	let isEmpty = true;
 	for (let i = 0; i < n; i++) {
 		for (let j = 0; j < n; j++) {
@@ -92,9 +92,9 @@ function solveSudoku(board, n) {
 				break;
 			}
 		}
-		// if (!isEmpty) {
-		// 	break;
-		// }
+		if (!isEmpty) {
+			break;
+		}
 	}
 
 	// No empty space left
