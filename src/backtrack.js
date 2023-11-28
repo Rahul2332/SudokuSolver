@@ -75,8 +75,9 @@ export function isSafe(board, row, col, num) {
 
 
 function solveSudoku(board, n) {
-	let row = -1;
-	let col = -1;
+	// let row = -1;
+	// let col = -1;
+	let row, col;
 	let isEmpty = true;
 	for (let i = 0; i < n; i++) {
 		for (let j = 0; j < n; j++) {
@@ -90,9 +91,9 @@ function solveSudoku(board, n) {
 				break;
 			}
 		}
-		if (!isEmpty) {
-			break;
-		}
+		// if (!isEmpty) {
+		// 	break;
+		// }
 	}
 
 	// No empty space left
