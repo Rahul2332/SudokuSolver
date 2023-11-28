@@ -100,19 +100,61 @@ describe('bitwise', () => {
     expect(isSafe(1, 7, 3, [0, 2, 4, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0])).to.equal(true);
   });
 
-  it('case 1: getBox ', () => {
-    expect(getBox(0, 0)).to.equal(0);
+  // it('case 1: getBox ', () => {
+  //   expect(getBox(0, 0)).to.equal(0);
+  // });
+  // it('case 2: getBox ', () => {
+  //   expect(getBox(4, 4)).to.equal(4);
+  // });
+  // it('case 3: getBox ', () => {
+  //   expect(getBox(8, 7)).to.equal(8);
+  // });
+  // it('case 4: getBox ', () => {
+  //   expect(getBox(-1, 2)).to.equal(null);
+  // });
+  // it('case 5: getBox ', () => {
+  //   expect(getBox(3, 10)).to.equal(null);
+  // });
+  it('case 1a: getBox ', () => {
+    expect(getBox(0, 3)).to.equal(1);
   });
-  it('case 2: getBox ', () => {
-    expect(getBox(4, 4)).to.equal(4);
+  it('case 1b: getBox ', () => {
+    expect(getBox(-1, 3)).to.equal(null);
   });
-  it('case 3: getBox ', () => {
-    expect(getBox(8, 7)).to.equal(8);
+  it('case 1c: getBox ', () => {
+    expect(getBox(1, 3)).to.equal(1);
   });
-  it('case 4: getBox ', () => {
-    expect(getBox(-1, 2)).to.equal(null);
+
+  it('case 2a: getBox ', () => {
+    expect(getBox(3, 0)).to.equal(3);
   });
-  it('case 5: getBox ', () => {
+  it('case 2b: getBox ', () => {
+    expect(getBox(3, -1)).to.equal(null);
+  });
+  it('case 2c: getBox ', () => {
+    expect(getBox(3, 1)).to.equal(3);
+  });
+
+  it('case 3a: getBox ', () => {
+    expect(getBox(9, 3)).to.equal(null);
+  });
+  it('case 3b: getBox ', () => {
+    expect(getBox(10, 3)).to.equal(null);
+  });
+  it('case 3c: getBox ', () => {
+    expect(getBox(8, 3)).to.equal(7);
+  });
+
+  it('case 4a: getBox ', () => {
+    expect(getBox(3, 9)).to.equal(null);
+  });
+  it('case 4b: getBox ', () => {
     expect(getBox(3, 10)).to.equal(null);
   });
+  it('case 4c: getBox ', () => {
+    expect(getBox(3, 8)).to.equal(5);
+  });
+
+  
+
 });
